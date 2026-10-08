@@ -1,89 +1,41 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detective Terminal</title>
-
-styles.css
-
+<link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-
-<div class="header">
-PIETERSE INVESTIGATIONS
-</div>
-
+<div class="header">PIETERSE INVESTIGATIONS</div>
 <div class="toolbar">
-
-<button onclick="showImport()">
-IMPORT CASE
-</button>
-
-<button onclick="clearChat()">
-CLEAR CHAT
-</button>
-
+<button onclick="showImport()">IMPORT CASE</button>
+<button onclick="clearChat()">CLEAR CHAT</button>
 <select id="agent">
 <option value="gm">Game Master</option>
 <option value="forensics">Forensics</option>
 <option value="police">Police Database</option>
 <option value="suspect">Suspect</option>
 </select>
-
-<select id="suspectSelect">
-<option value="">Choose Suspect</option>
-</select>
-
+<select id="suspectSelect"><option value="">Choose Suspect</option></select>
 </div>
-
 <div class="case-panel">
-
 <p><strong>Case:</strong> <span id="caseTitle">No Case Loaded</span></p>
-
 <p><strong>Victim:</strong> <span id="victim">Unknown</span></p>
-
 <p><strong>Setting:</strong> <span id="setting">Unknown</span></p>
-
 </div>
-
-<div id="importPanel">
-
+<div id="importPanel" style="display:none;">
 <h3>Paste Case JSON</h3>
-
-<textarea id="caseJson"></textarea>
-
-<button onclick="importCase()">
-LOAD CASE
-</button>
-
+<textarea id="caseJson"></textarea><br><br>
+<button onclick="importCase()">LOAD CASE</button>
 </div>
-
 <div id="chat"></div>
-
 <div class="input-row">
-
-<input
-type="text"
-id="message"
-placeholder="Enter command...">
-
-<button onclick="sendMessage()">
-SEND
-</button>
-
+<input type="text" id="message" placeholder="Enter command or question...">
+<button onclick="sendMessage()">SEND</button>
 </div>
-
-<div class="notes">
-
 <h3>Case Notes</h3>
-
 <textarea id="notes"></textarea>
-
-</div>
-
-app.jsscript>
-
+<script src="app.js"></script>
 </body>
 </html>
