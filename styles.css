@@ -120,3 +120,36 @@ textarea{
     color:#ffff66;
     margin-bottom:10px;
 }
+
+.image-container{
+
+    margin-top:10px;
+
+    border:1px solid #00ff66;
+
+    background:#000;
+
+    min-height:400px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+#generatedImage{
+
+    width:100%;
+
+    height:auto;
+
+    display:none;
+}
+
+#imageStatus{
+
+    color:#ffff66;
+
+    margin-top:10px;
+}
