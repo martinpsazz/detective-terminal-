@@ -2,9 +2,11 @@
 <html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Detective Terminal</title>
-<tyles.css
+
+styles.css
+
 </head>
 
 <body>
@@ -19,8 +21,8 @@ PIETERSE INVESTIGATIONS
 IMPORT CASE
 </button>
 
-<button onclick="exportCase()">
-EXPORT CASE
+<button onclick="clearChat()">
+CLEAR CHAT
 </button>
 
 <select id="agent">
@@ -36,22 +38,13 @@ EXPORT CASE
 
 </div>
 
-<div class="casePanel">
+<div class="case-panel">
 
-<div>
-<b>Case:</b>
-<span id="caseTitle">No Case Loaded</span>
-</div>
+<p><strong>Case:</strong> <span id="caseTitle">No Case Loaded</span></p>
 
-<div>
-<b>Victim:</b>
-<span id="victim">Unknown</span>
-</div>
+<p><strong>Victim:</strong> <span id="victim">Unknown</span></p>
 
-<div>
-<b>Setting:</b>
-<span id="setting">Unknown</span>
-</div>
+<p><strong>Setting:</strong> <span id="setting">Unknown</span></p>
 
 </div>
 
@@ -69,11 +62,12 @@ LOAD CASE
 
 <div id="chat"></div>
 
-<div class="inputRow">
+<div class="input-row">
 
 <input
+type="text"
 id="message"
-placeholder="Enter command">
+placeholder="Enter command...">
 
 <button onclick="sendMessage()">
 SEND
@@ -81,9 +75,13 @@ SEND
 
 </div>
 
+<div class="notes">
+
 <h3>Case Notes</h3>
 
 <textarea id="notes"></textarea>
+
+</div>
 
 app.jsscript>
 

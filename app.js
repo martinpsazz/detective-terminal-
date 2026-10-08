@@ -1,292 +1,272 @@
 const WORKER_URL =
 "https://detective-ai-curly-king-4e00.martinpsa.workers.dev";
 
-function showImport(){
+function showImport() {
 
-document.getElementById(
-"importPanel"
-).style.display = "block";
+    var panel =
+        document.getElementById(
+            "importPanel"
+        );
 
+    panel.style.display =
+        panel.style.display === "block"
+        ? "none"
+        : "block";
 }
 
-function addMessage(
-speaker,
-message
-){
+function clearChat() {
 
-const chat =
-document.getElementById(
-"chat"
-);
+    document.getElementById(
+        "chat"
+    ).innerHTML = "";
+}
 
-chat.innerHTML +=
-"<p><b>" +
-speaker +
-":</b> " +
-message +
-"</p>";
+function addMessage(type,text){
 
-chat.scrollTop =
-chat.scrollHeight;
+    var chat =
+        document.getElementById(
+            "chat"
+        );
 
+    chat.innerHTML +=
+        "<p class='" +
+        type +
+        "'><strong>" +
+        type.toUpperCase() +
+        ":</strong> " +
+        text +
+        "</p>";
+
+    chat.scrollTop =
+        chat.scrollHeight;
 }
 
 async function importCase(){
 
-try{
+    try{
 
-const caseJson =
-document.getElementById(
-"caseJson"
-).value;
+        var jsonText =
+            document.getElementById(
+                "caseJson"
+            ).value;
 
-const data =
-JSON.parse(caseJson);
+        var caseData =
+            JSON.parse(jsonText);
 
-const response =
-await fetch(
-WORKER_URL +
-"/import-case",
-{
-method:"POST",
+        var response =
+            await fetch(
+                WORKER_URL +
+                "/import-case",
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+                    body:JSON.stringify(
+                        caseData
+                    )
+                }
+            );
 
-headers:{
-"Content-Type":
-"application/json"
-},
+        var result =
+            await response.json();
 
-body:JSON.stringify(
-data
-)
-}
-);
+        localStorage.setItem(
+            "caseId",
+            result.caseId
+        );
 
-const result =
-await response.json();
+        addMessage(
+            "system",
+            "Case imported."
+        );
 
-localStorage.setItem(
-"caseId",
-result.caseId
-);
+        loadCase();
 
-await loadCase();
+    }catch(error){
 
-addMessage(
-"SYSTEM",
-"Case imported successfully."
-);
+        alert(
+            "Invalid JSON"
+        );
 
-}
-catch(err){
-
-alert(
-"Invalid JSON."
-);
-
-}
-
+    }
 }
 
 async function loadCase(){
 
-const caseId =
-localStorage.getItem(
-"caseId"
-);
+    var caseId =
+        localStorage.getItem(
+            "caseId"
+        );
 
-if(!caseId){
-return;
-}
+    if(!caseId){
+        return;
+    }
 
-const response =
-await fetch(
-WORKER_URL +
-"/case?id=" +
-encodeURIComponent(
-caseId
-)
-);
+    var response =
+        await fetch(
+            WORKER_URL +
+            "/case?id=" +
+            encodeURIComponent(
+                caseId
+            )
+        );
 
-const data =
-await response.json();
+    var data =
+        await response.json();
 
-document.getElementById(
-"caseTitle"
-).innerHTML =
-data.title || "";
+    document.getElementById(
+        "caseTitle"
+    ).textContent =
+        data.title || "";
 
-document.getElementById(
-"victim"
-).innerHTML =
-data.victim || "";
+    document.getElementById(
+        "victim"
+    ).textContent =
+        data.victim || "";
 
-document.getElementById(
-"setting"
-).innerHTML =
-data.setting || "";
+    document.getElementById(
+        "setting"
+    ).textContent =
+        data.setting || "";
 
-populateSuspects(
-data.suspects || []
-);
-
+    populateSuspects(
+        data.suspects || []
+    );
 }
 
 function populateSuspects(
-suspects
+    suspects
 ){
 
-const select =
-document.getElementById(
-"suspectSelect"
-);
+    var select =
+        document.getElementById(
+            "suspectSelect"
+        );
 
-select.innerHTML =
-'<option value="">Choose Suspect</option>';
+    select.innerHTML =
+        '<option value="">Choose Suspect</option>';
 
-suspects.forEach(
-function(s){
+    suspects.forEach(function(s){
 
-const option =
-document.createElement(
-"option"
-);
+        var option =
+            document.createElement(
+                "option"
+            );
 
-option.value =
-s.name;
+        option.value =
+            s.name;
 
-option.innerHTML =
-s.name;
+        option.textContent =
+            s.name;
 
-select.appendChild(
-option
-);
+        select.appendChild(
+            option
+        );
 
-}
-);
-
+    });
 }
 
 async function sendMessage(){
 
-const caseId =
-localStorage.getItem(
-"caseId"
-);
+    var caseId =
+        localStorage.getItem(
+            "caseId"
+        );
 
-if(!caseId){
+    if(!caseId){
 
-alert(
-"Import a case first."
-);
+        alert(
+            "Import a case first."
+        );
 
-return;
+        return;
+    }
 
-}
+    var messageBox =
+        document.getElementById(
+            "message"
+        );
 
-const message =
-document.getElementById(
-"message"
-).value;
+    var message =
+        messageBox.value;
 
-addMessage(
-"YOU",
-message
-);
+    if(!message){
+        return;
+    }
 
-document.getElementById(
-"message"
-).value = "";
+    addMessage(
+        "user",
+        message
+    );
 
-const response =
-await fetch(
-WORKER_URL +
-"/chat",
-{
-method:"POST",
+    messageBox.value = "";
 
-headers:{
-"Content-Type":
-"application/json"
-},
+    var response =
+        await fetch(
+            WORKER_URL +
+            "/chat",
+            {
+                method:"POST",
 
-body:JSON.stringify({
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
 
-caseId:caseId,
+                body:JSON.stringify({
 
-agent:
-document
-.getElementById(
-"agent"
-)
-.value,
+                    caseId:caseId,
 
-suspectName:
-document
-.getElementById(
-"suspectSelect"
-)
-.value,
+                    agent:
+                    document
+                    .getElementById(
+                        "agent"
+                    ).value,
 
-message:message
+                    suspectName:
+                    document
+                    .getElementById(
+                        "suspectSelect"
+                    ).value,
 
-})
-}
-);
+                    message:message
+                })
+            }
+        );
 
-const data =
-await response.json();
+    var data =
+        await response.json();
 
-addMessage(
-"AI",
-data.reply
-);
-
-}
-
-function saveNotes(){
-
-localStorage.setItem(
-"notes",
-document.getElementById(
-"notes"
-).value
-);
-
-}
-
-function loadNotes(){
-
-document.getElementById(
-"notes"
-).value =
-localStorage.getItem(
-"notes"
-) || "";
-
-}
-
-function exportCase(){
-
-const caseId =
-localStorage.getItem(
-"caseId"
-);
-
-alert(
-"Current Case ID:\n\n" +
-caseId
-);
-
+    addMessage(
+        "ai",
+        data.reply ||
+        data.error
+    );
 }
 
 document
 .getElementById(
-"notes"
+    "notes"
 )
 .addEventListener(
-"keyup",
-saveNotes
+    "keyup",
+    function(){
+
+        localStorage.setItem(
+            "notes",
+            this.value
+        );
+
+    }
 );
 
-loadNotes();
+document.getElementById(
+    "notes"
+).value =
+    localStorage.getItem(
+        "notes"
+    ) || "";
+
 loadCase();
