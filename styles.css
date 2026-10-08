@@ -1,1 +1,38 @@
 body{background:#000;color:#00ff66;font-family:Courier New,monospace;margin:10px}.header{font-size:28px;border-bottom:1px solid #00ff66;padding-bottom:10px;margin-bottom:10px}.toolbar{margin-bottom:10px}.case-panel,#chat{border:1px solid #00ff66;background:#111;padding:10px}.case-panel{margin-bottom:10px}button,select,input,textarea{background:#111;color:#00ff66;border:1px solid #00ff66;padding:6px;font-family:inherit}#chat{height:420px;overflow:auto;margin-bottom:10px}.input-row{margin:10px 0}#message{width:75%}#notes,#caseJson{width:100%;box-sizing:border-box}#notes{height:120px}#caseJson{height:220px}.user{color:#66ccff}.ai{color:#00ff66}.system{color:#ffff66}
+.ai-message{
+    border-left:3px solid #00ff66;
+    padding-left:10px;
+    margin:10px 0;
+}
+
+.ai-message h1,
+.ai-message h2,
+.ai-message h3{
+    color:#ffff66;
+}
+
+.ai-message strong{
+    color:#ffffff;
+}
+
+.ai-message em{
+    color:#cccccc;
+}
+
+.ai-message ul{
+    padding-left:25px;
+}
+
+.ai-message li{
+    margin-bottom:4px;
+}
+
+.user-message{
+    color:#66ccff;
+    margin:10px 0;
+}
+
+.system-message{
+    color:#ffff66;
+    margin:10px 0;
+}
