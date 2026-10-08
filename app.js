@@ -58,8 +58,18 @@ async function loadSavedCases() {
         const response =
             await fetch(
                 WORKER_URL +
-                "/cases"
+                "/cases",
+                {
+                    cache: "no-store"
+                }
             );
+
+        if (!response.ok) {
+            throw new Error(
+                "HTTP " +
+                response.status
+            );
+        }
 
         const cases =
             await response.json();
