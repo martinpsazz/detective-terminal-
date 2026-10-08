@@ -570,4 +570,3 @@ document.addEventListener(
 
     }
 );
-);
