@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>Detective Terminal</title>
-<link rels
+<tyles.css
 </head>
 
 <body>
@@ -13,10 +13,14 @@
 PIETERSE INVESTIGATIONS
 </div>
 
-<div class="topbar">
+<div class="toolbar">
 
-<button onclick="newCase()">
-NEW CASE
+<button onclick="showImport()">
+IMPORT CASE
+</button>
+
+<button onclick="exportCase()">
+EXPORT CASE
 </button>
 
 <select id="agent">
@@ -32,33 +36,44 @@ NEW CASE
 
 </div>
 
-<div class="casebox">
+<div class="casePanel">
 
 <div>
-Case:
-<span id="caseTitle">None</span>
+<b>Case:</b>
+<span id="caseTitle">No Case Loaded</span>
 </div>
 
 <div>
-Victim:
+<b>Victim:</b>
 <span id="victim">Unknown</span>
 </div>
 
 <div>
-Setting:
+<b>Setting:</b>
 <span id="setting">Unknown</span>
 </div>
 
 </div>
 
+<div id="importPanel">
+
+<h3>Paste Case JSON</h3>
+
+<textarea id="caseJson"></textarea>
+
+<button onclick="importCase()">
+LOAD CASE
+</button>
+
+</div>
+
 <div id="chat"></div>
 
-<div class="inputbox">
+<div class="inputRow">
 
 <input
 id="message"
-placeholder="Enter command..."
->
+placeholder="Enter command">
 
 <button onclick="sendMessage()">
 SEND
@@ -66,7 +81,7 @@ SEND
 
 </div>
 
-<h3>Notes</h3>
+<h3>Case Notes</h3>
 
 <textarea id="notes"></textarea>
 
