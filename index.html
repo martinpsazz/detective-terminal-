@@ -1,1 +1,76 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Detective Terminal</title><link rel="stylesheet" href="styles.css"></head><body><div class="header">PIETERSE INVESTIGATIONS</div><div class="tabs"><button onclick="setAgent('gm')">GM</button><button onclick="setAgent('forensics')">Forensics</button><button onclick="setAgent('police')">Police DB</button><button onclick="setAgent('suspect')">Suspect</button><select id="suspectSelect"></select></div><div class="container"><div class="chat-column"><div id="chat"></div><div class="inputRow"><input id="message" type="text"><button onclick="sendMessage()">SEND</button></div></div><div class="side-panel"><h3>Evidence</h3><textarea id="evidence"></textarea><h3>Suspects</h3><textarea id="suspects"></textarea><h3>Timeline</h3><textarea id="timeline"></textarea><h3>Case Notes</h3><textarea id="notes"></textarea><button onclick="newCase()">NEW CASE</button></div></div><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Detective Terminal</title>
+<link rels
+</head>
+
+<body>
+
+<div class="header">
+PIETERSE INVESTIGATIONS
+</div>
+
+<div class="topbar">
+
+<button onclick="newCase()">
+NEW CASE
+</button>
+
+<select id="agent">
+<option value="gm">Game Master</option>
+<option value="forensics">Forensics</option>
+<option value="police">Police Database</option>
+<option value="suspect">Suspect</option>
+</select>
+
+<select id="suspectSelect">
+<option value="">Choose Suspect</option>
+</select>
+
+</div>
+
+<div class="casebox">
+
+<div>
+Case:
+<span id="caseTitle">None</span>
+</div>
+
+<div>
+Victim:
+<span id="victim">Unknown</span>
+</div>
+
+<div>
+Setting:
+<span id="setting">Unknown</span>
+</div>
+
+</div>
+
+<div id="chat"></div>
+
+<div class="inputbox">
+
+<input
+id="message"
+placeholder="Enter command..."
+>
+
+<button onclick="sendMessage()">
+SEND
+</button>
+
+</div>
+
+<h3>Notes</h3>
+
+<textarea id="notes"></textarea>
+
+app.jsscript>
+
+</body>
+</html>
